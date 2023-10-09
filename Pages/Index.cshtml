@@ -4,8 +4,6 @@
     <script src="~/js/dragAndDrop.js" asp-append-version="true"></script>
 }
 
-
-
 <style>
     #drop-area {
         background-color: #FFF;
@@ -75,7 +73,7 @@
 <form class="my-form" method="post" enctype="multipart/form-data">
     <div id="drop-area">
         <div>
-            <input type="file" id="fileElem" multiple accept="video/*" onchange="handleFiles(this.files)">
+            <input type="file" id="fileElem" accept="video/*" onchange="handleFiles(this.files)" name="Video">
             <label class="button" for="fileElem">
                 <i class="fa-solid fa-upload"></i>&nbsp;
                 Clique ou arraste seu vídeo.

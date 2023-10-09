@@ -6,10 +6,15 @@ namespace Razor_Estudos.Pages;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
+    private IWebHostEnvironment _environment;
 
-    public IndexModel(ILogger<IndexModel> logger)
+    [BindProperty]
+    public IFormFile Video { get; set; }
+
+    public IndexModel(ILogger<IndexModel> logger, IWebHostEnvironment environment)
     {
         _logger = logger;
+        _environment = environment;
     }
 
     public void OnGet()
@@ -17,10 +22,10 @@ public class IndexModel : PageModel
 
     }
 
-    public void OnPost(IFormFile file)
+    public void OnPost()
     {
-        Console.WriteLine("entrou, agora sim");
+        Console.WriteLine("entrei");
 
-        Console.WriteLine(file);
+        Console.WriteLine(Video.FileName);
     }
 }

@@ -53,7 +53,7 @@ function updateProgress(fileNumber, percent) {
 
 function handleFiles(files) {
     files = [...files]
-    files.forEach(uploadFile)
+    // files.forEach(uploadFile)
     files.forEach(previewFile)
 }
 
