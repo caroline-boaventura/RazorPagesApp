@@ -52,6 +52,7 @@ function updateProgress(fileNumber, percent) {
 }
 
 function handleFiles(files) {
+
     files = [...files]
     // files.forEach(uploadFile)
     files.forEach(previewFile)
@@ -66,6 +67,8 @@ function previewFile(file) {
         document.getElementById('gallery').appendChild(par)
     }
 }
+
+document.getElementById("error").innerText = "";
 
 function uploadFile(file, i) {
     var url = 'https://api.cloudinary.com/v1_1/joezimim007/image/upload'

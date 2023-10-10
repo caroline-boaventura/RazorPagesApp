@@ -4,6 +4,24 @@
     <script src="~/js/dragAndDrop.js" asp-append-version="true"></script>
 }
 
+@{
+    var tableHeader = new List<string>{
+        "Formato", 
+        "Tem legendas externas?", 
+        "Taxa de vídeo", 
+        "Duração", 
+        "Altura", 
+        "É 3D?", 
+        "É BluRay?", 
+        "É DVD?", 
+        "É HDR?", 
+        "Tamanho", 
+        "Subtítulos", 
+        "Tags", 
+        "Resolução" 
+    };
+}
+
 <style>
     #drop-area {
         background-color: #FFF;
@@ -65,22 +83,95 @@
         left: 50%;
         top: 50%;
     }
+
+    #error {
+        color: red;
+    }
 </style>
 
 
-
-<p id="form-title">Quer saber as características do seu vídeo?</p>
-<form class="my-form" method="post" enctype="multipart/form-data">
-    <div id="drop-area">
-        <div>
-            <input type="file" id="fileElem" accept="video/*" onchange="handleFiles(this.files)" name="Video">
-            <label class="button" for="fileElem">
-                <i class="fa-solid fa-upload"></i>&nbsp;
-                Clique ou arraste seu vídeo.
-            </label>
+<div id="control-hidden-forms">
+    <p id="form-title">Quer saber as características do seu vídeo?</p>
+    <form class="my-form" method="post" enctype="multipart/form-data">
+        <div id="drop-area">
+            <div>
+                <input type="file" id="fileElem" accept="video/*" onchange="handleFiles(this.files)" name="Video">
+                <label class="button" for="fileElem">
+                    <i class="fa-solid fa-upload"></i>&nbsp;
+                    Clique ou arraste seu vídeo.
+                </label>
+            </div>
+            @if(Model.VideoResult?.Success == false)
+            {
+                <p id="error" class="text-center">@Model.VideoResult?.ErrorMessage</p>
+            }
+            <div id="gallery"></div>
         </div>
-        <div id="gallery"></div>
-    </div>
-    <button type="submit" class="btn btn-primary" id="send-button">Enviar</button>
-</form>
+        
+        <button type="submit" class="btn btn-primary" id="send-button">Enviar</button>
+    </form>
+    
 </div>
+
+@if(Model.VideoResult?.Success == true) {
+<table class="table table-bordered table-inverse ">
+    <tr>
+        <th scope="col">Formato</th>
+        <td>@Model.VideoResult.Data?.Format</td>
+    </tr>
+    <tr>
+        <th scope="col">Tem legendas externas?</th>
+        <td>@Model.VideoResult.Data?.HasExternalSubtitles</td>
+    </tr>
+    <tr>
+        <th scope="col">Taxa de vídeo</th>
+        <td>@Model.VideoResult.Data?.VideoRate</td>
+    </tr>
+    <tr>
+        <th scope="col">Duração</th>
+        <td>@Model.VideoResult.Data?.Duration</td>
+    </tr>
+    <tr>
+        <th scope="col">Altura</th>
+        <td>@Model.VideoResult.Data?.Height</td>
+    </tr>
+    <tr>
+        <th scope="col">É 3D?</th>
+        <td>@Model.VideoResult.Data?.Is3D</td>
+    </tr>
+    <tr>
+        <th scope="col">É BluRay?</th>
+        <td>@Model.VideoResult.Data?.IsBluRay</td>
+    </tr>
+    <tr>
+        <th scope="col">É DVD?</th>
+        <td>@Model.VideoResult.Data?.IsDvd</td>
+    </tr>
+    <tr>
+        <th scope="col">É HDR?</th>
+        <td>@Model.VideoResult.Data?.IsHdr</td>
+    </tr>
+    <tr>
+        <th scope="col">Tamanho</th>
+        <td>@Model.VideoResult.Data?.Size</td>
+    </tr>
+    <tr>
+        <th scope="col">Subtítulos</th>
+        <td>@Model.VideoResult.Data?.Subtitles</td>
+    </tr>
+    <tr>
+        <th scope="col">Resolução</th>
+        <td>@Model.VideoResult.Data?.VideoResolution</td>
+
+    </tr>
+</table>
+}
+
+@if(Model.VideoResult?.Success == true) {
+    <script>
+        console.log("entrou no script")
+        document.getElementById("control-hidden-forms").style.display = "none";
+    </script>
+}
+
+
